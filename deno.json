@@ -1,7 +1,8 @@
 {
   "name": "@utility/version",
   "tasks": {
-    "test": "deno test --coverage --allow-run --allow-write --allow-read"
+    "test": "deno test --coverage --allow-run --allow-write --allow-read",
+    "coverage": "deno coverage --include=src --lcov > coverage/lcov.info"
   },
   "imports": {
     "@std/semver": "jsr:@std/semver@^0.220.1",
