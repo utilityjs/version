@@ -1,4 +1,5 @@
 {
+  "name": "@utility/version",
   "tasks": {
     "test": "deno test --coverage --allow-run --allow-write --allow-read"
   },
