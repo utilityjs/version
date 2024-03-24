@@ -1,3 +1,3 @@
 ```shell
-deno install -f -A -n version main.ts
+deno install -f -A -n version mod.ts
 ```
