@@ -4,9 +4,24 @@
     "test": "deno test --coverage --allow-run --allow-write --allow-read",
     "coverage": "deno coverage --include=src --lcov > coverage/lcov.info"
   },
+  "exports": "./mod.ts",
+  "publish": {
+    "include": [
+      "LICENSE",
+      "README.md",
+      "mod.ts",
+      "README.md",
+      "deno.json",
+      "deno.lock",
+      "src/**/*.ts"
+    ],
+    "exclude": [
+      "test/"
+    ]
+  },
   "imports": {
     "@std/semver": "jsr:@std/semver@^0.220.1",
     "@utility/git": "jsr:@utility/git@^0.2.0"
   },
-  "version": "1.0.1"
+  "version": "1.0.0"
 }
