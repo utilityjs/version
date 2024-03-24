@@ -6,5 +6,6 @@
   "imports": {
     "@std/semver": "jsr:@std/semver@^0.220.1",
     "@utility/git": "jsr:@utility/git@^0.2.0"
-  }
+  },
+  "version": "1.0.1"
 }
