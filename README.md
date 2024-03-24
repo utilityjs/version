@@ -1,6 +1,6 @@
-# version
+# Version
 
-A simple semantic versioning tool — a lightweight replacement for `npm version`.
+A simple semantic versioning tool.
 
 - Creates and manages a file called `version.json` (storing the current version)
 - Also updates version on `deno.json` or `package.json` or `jsr.json` if available on project root.
