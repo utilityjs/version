@@ -8,14 +8,14 @@ import { GITUtility } from "jsr:@utility/git";
 const VERSION_FILE_NAME = "version.json";
 
 type VersionConfig = {
-  version: string,
-  prerelease?: string,
-  deno?: boolean,
-  signGitTag?: boolean
-}
+  version: string;
+  prerelease?: string;
+  deno?: boolean;
+  signGitTag?: boolean;
+};
 
 export async function defaultAction() {
-  if (!await _versionFileExists()) {
+  if (!(await _versionFileExists())) {
     throw new UserError(
       `Could not read ${VERSION_FILE_NAME} file. Run \`version init\` to create one`
     );
@@ -31,8 +31,8 @@ export async function defaultAction() {
       { name: "preminor", value: "preminor" },
       { name: "patch", value: "patch" },
       { name: "prepatch", value: "prepatch" },
-      { name: "prerelease", value: "prerelease" }
-    ]
+      { name: "prerelease", value: "prerelease" },
+    ],
   });
 
   await _versionBump(release);
@@ -58,11 +58,12 @@ export const getCommand = new Command()
  * $> version init
  */
 export const initCommand = new Command()
-  .description("Creates version.json file in project root, with selected options.")
+  .description(
+    "Creates version.json file in project root, with selected options."
+  )
   .arguments("[initVersion]")
   .action(async (_options: any, initVersion) => {
-
-    if (await (new GITUtility()).hasUncommittedChanges()) {
+    if (await new GITUtility().hasUncommittedChanges()) {
       throw new UserError("Cannot release with uncommitted changes");
     }
 
@@ -73,13 +74,12 @@ export const initCommand = new Command()
       deno: true,
       node: true,
       jsr: true,
-      signGitTag: true
+      signGitTag: true,
     });
 
     _commitAndTag(version);
 
     console.log(`${version}`);
-
   });
 
 export function getVersionBumpCommand(release: string) {
@@ -96,18 +96,24 @@ async function _versionFileExists() {
 }
 
 async function _versionBump(release: string) {
-  if (await (new GITUtility()).hasUncommittedChanges()) {
+  if (await new GITUtility().hasUncommittedChanges()) {
     throw new UserError("Cannot release with uncommitted changes");
   }
 
   const versionConfig: VersionConfig = await _getVersionConfig();
   const oldVersion = versionConfig.version;
-  const newVersion = format(increment(parse(versionConfig.version), <ReleaseType>release, versionConfig.prerelease || "pre"));
+  const newVersion = format(
+    increment(
+      parse(versionConfig.version),
+      <ReleaseType>release,
+      versionConfig.prerelease || "pre"
+    )
+  );
 
   versionConfig.version = newVersion;
   await writeJsonFile(VERSION_FILE_NAME, versionConfig);
 
-  if (versionConfig.deno && await exists("deno.json")) {
+  if (versionConfig.deno && (await exists("deno.json"))) {
     console.log("deno.json found");
     const denoConfig: any = await readJsonFile("deno.json");
     console.log(denoConfig);
@@ -121,7 +127,6 @@ async function _versionBump(release: string) {
 
   console.log(`${oldVersion} -> ${newVersion}`);
 }
-
 
 async function _getVersionConfig(): Promise<VersionConfig> {
   let content: VersionConfig;
@@ -153,11 +158,15 @@ async function _readVersion(): Promise<string> {
   return (await _getVersionConfig()).version;
 }
 
-export async function _commitAndTag(
-  normalizedVersion: string
-) {
+export async function _commitAndTag(normalizedVersion: string) {
   const gitUtil = new GITUtility();
   await gitUtil.runCommand("add", "*");
   await gitUtil.runCommand("commit", "-m", normalizedVersion);
-  await gitUtil.runCommand("tag", "-s", `v${normalizedVersion}`, "-m", `v${normalizedVersion}`);
+  await gitUtil.runCommand(
+    "tag",
+    "-s",
+    `v${normalizedVersion}`,
+    "-m",
+    `v${normalizedVersion}`
+  );
 }

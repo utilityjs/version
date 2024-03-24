@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run --watch main.ts"
+    "test": "deno test --coverage --allow-run --allow-write --allow-read"
   },
   "imports": {
     "@std/semver": "jsr:@std/semver@^0.220.1",

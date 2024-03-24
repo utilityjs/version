@@ -1,10 +1,17 @@
 import { Command } from "https://deno.land/x/cliffy@v1.0.0-rc.3/command/mod.ts";
-import { defaultAction, getCommand, initCommand, getVersionBumpCommand } from "./src/commands.ts";
+import {
+  defaultAction,
+  getCommand,
+  getVersionBumpCommand,
+  initCommand,
+} from "./src/commands.ts";
 
 await new Command()
-  .description(`
+  .description(
+    `
     A command line utility for managing your project version.
-  `)
+  `
+  )
   .version("0.1.0")
   .name("version")
   .action(defaultAction)
