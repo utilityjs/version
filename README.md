@@ -6,8 +6,6 @@ A simple semantic versioning tool.
 - Also updates version on `deno.json` or `package.json` or `jsr.json` if available on project root.
 - Shells out to `git` to create commits and tags for version bumps
 
-— the rest is up to you.
-
 ## Installation
 
 ```
