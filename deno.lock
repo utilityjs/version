@@ -3,15 +3,14 @@
   "packages": {
     "specifiers": {
       "jsr:@std/semver": "jsr:@std/semver@0.220.1",
-      "jsr:@std/semver@^0.220.1": "jsr:@std/semver@0.220.1",
-      "jsr:@utility/git": "jsr:@utility/git@0.1.0"
+      "jsr:@utility/git": "jsr:@utility/git@0.2.0"
     },
     "jsr": {
       "@std/semver@0.220.1": {
         "integrity": "f3df4abc715ad723680011f19d2934cfd436b4c41c317e82bfc14ac586b3b724"
       },
-      "@utility/git@0.1.0": {
-        "integrity": "91ff93fa9ad58c04bdfb6e7b10352e0c2466d66b93a7c0f453008a39a44295ba"
+      "@utility/git@0.2.0": {
+        "integrity": "fa34f3ee320d1bf587601cbfd6be90620b5024cd25dd6c8c142cbe6e7fdd51ff"
       }
     }
   },
