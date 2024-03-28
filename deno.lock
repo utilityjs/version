@@ -3,7 +3,9 @@
   "packages": {
     "specifiers": {
       "jsr:@std/semver": "jsr:@std/semver@0.220.1",
-      "jsr:@utility/git": "jsr:@utility/git@0.2.0"
+      "jsr:@std/semver@^0.220.1": "jsr:@std/semver@0.220.1",
+      "jsr:@utility/git": "jsr:@utility/git@0.2.0",
+      "jsr:@utility/git@^0.2.0": "jsr:@utility/git@0.2.0"
     },
     "jsr": {
       "@std/semver@0.220.1": {

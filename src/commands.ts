@@ -67,15 +67,19 @@ export const initCommand = new Command()
       throw new UserError("Cannot release with uncommitted changes");
     }
 
-    const version = initVersion || "1.0.0";
+    const version = initVersion || "0.1.0";
 
-    await writeJsonFile(VERSION_FILE_NAME, {
+    const versionConfig = {
       version: version,
       deno: true,
       node: true,
       jsr: true,
       signGitTag: true,
-    });
+    };
+
+    await writeJsonFile(VERSION_FILE_NAME, versionConfig);
+
+    _updateDENOJSON(versionConfig);
 
     _commitAndTag(version);
 
@@ -113,19 +117,21 @@ async function _versionBump(release: string) {
   versionConfig.version = newVersion;
   await writeJsonFile(VERSION_FILE_NAME, versionConfig);
 
-  if (versionConfig.deno && (await exists("deno.json"))) {
-    console.log("deno.json found");
-    const denoConfig: any = await readJsonFile("deno.json");
-    console.log(denoConfig);
-    if (denoConfig) {
-      denoConfig.version = newVersion;
-      await writeJsonFile("deno.json", denoConfig);
-    }
-  }
+  _updateDENOJSON(versionConfig);
 
   _commitAndTag(newVersion);
 
   console.log(`${oldVersion} -> ${newVersion}`);
+}
+
+async function _updateDENOJSON(versionConfig: VersionConfig): Promise<void> {
+  if (versionConfig.deno && (await exists("deno.json"))) {
+    const denoConfig: any = await readJsonFile("deno.json");
+    if (denoConfig) {
+      denoConfig.version = versionConfig.version;
+      await writeJsonFile("deno.json", denoConfig);
+    }
+  }
 }
 
 async function _getVersionConfig(): Promise<VersionConfig> {
