@@ -3,8 +3,8 @@ name: Publish
 on:
   push:
     branches: [main]
-  release:
-    types: [published]
+    tags:
+      - "v*"
 
 jobs:
   publish:
@@ -26,5 +26,12 @@ jobs:
         run: deno publish --dry-run
 
       - name: Publish
-        if: github.event_name == 'release'
+        if: startsWith(github.event.ref, 'refs/tags/v')
         run: deno publish
+
+      - name: Release to github
+        if: startsWith(github.event.ref, 'refs/tags/v')
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
