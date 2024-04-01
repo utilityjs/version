@@ -31,7 +31,4 @@ jobs:
 
       - name: Release to github
         if: startsWith(github.event.ref, 'refs/tags/v')
-        uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
+        uses: softprops/action-gh-release@v2
