@@ -8,7 +8,7 @@ A simple semantic versioning tool.
 
 ## Installation
 
-```
+```shell
 $  deno install -g -f -n version -r -A jsr:@utility/version
 ```
 
@@ -38,8 +38,8 @@ $ version get
 If you prefer not to install the CLI locally, just substitute `$ version
 [whatever]` with:
 
-```
-$ deno run -A https://deno.land/x/version/index.ts [whatever]
+```shell
+$ deno run -A jsr:@utility/version@1.1.0 [whatever]
 ```
 
 ## Code commit convention
