@@ -38,19 +38,3 @@ export async function writeJsonFile(
 ): Promise<void> {
   return _writeTextFile(filePath, JSON.stringify(object, null, 2));
 }
-
-/*
-async function writeVersion(versionInput: string): Promise<void> {
-  const normalizedVersion = clean(versionInput);
-
-  if (!normalizedVersion) {
-    throw new UserError(`${versionInput} is not a valid version string`);
-  }
-
-  await checkPrerequisites();
-
-  await Deno.writeTextFile(fileName, normalizedVersion);
-  await commitAndTag(normalizedVersion, fileName);
-  console.log(normalizedVersion);
-}
- */

@@ -1,0 +1,43 @@
+{
+  "version": "3",
+  "packages": {
+    "specifiers": {
+      "jsr:@std/assert@^0.220.1": "jsr:@std/assert@0.220.1",
+      "jsr:@std/fmt@^0.220.1": "jsr:@std/fmt@0.220.1",
+      "jsr:@std/path@^0.220.1": "jsr:@std/path@0.220.1",
+      "jsr:@std/testing@^0.220.1": "jsr:@std/testing@0.220.1",
+      "jsr:@utility/git@^0.2.0": "jsr:@utility/git@0.2.0"
+    },
+    "jsr": {
+      "@std/assert@0.220.1": {
+        "integrity": "88710d54f3afdd7a5761e7805abba1f56cd14e4b212feffeb3e73a9f77482425",
+        "dependencies": [
+          "jsr:@std/fmt@^0.220.1"
+        ]
+      },
+      "@std/fmt@0.220.1": {
+        "integrity": "3b1a698477a26b1dacbbee26db1a65030a005c6d71db3b3a0e59f8a638f04d7a"
+      },
+      "@std/path@0.220.1": {
+        "integrity": "cc63c1b5e5192e2f718dc2f365a3514fffb26cc0380959bab0f8fb5988a52f0c"
+      },
+      "@std/testing@0.220.1": {
+        "integrity": "be77cc1df543f70217d450612637f9f6fcc6887f19fca89665ce08456ee1f290"
+      },
+      "@utility/git@0.2.0": {
+        "integrity": "fa34f3ee320d1bf587601cbfd6be90620b5024cd25dd6c8c142cbe6e7fdd51ff"
+      }
+    }
+  },
+  "remote": {},
+  "workspace": {
+    "dependencies": [
+      "jsr:@codemonument/cliffy@^1.0.0-rc.3",
+      "jsr:@std/assert@^0.220.1",
+      "jsr:@std/path@^0.220.1",
+      "jsr:@std/semver@^0.220.1",
+      "jsr:@std/testing@^0.220.1",
+      "jsr:@utility/git@^0.2.0"
+    ]
+  }
+}

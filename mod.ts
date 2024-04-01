@@ -1,4 +1,5 @@
 import { Command } from "@codemonument/cliffy/command";
+import denoJson from "./deno.json" assert { type: "json" };
 import {
   defaultAction,
   getCommand,
@@ -12,7 +13,7 @@ await new Command()
     A command line utility for managing your project version.
   `
   )
-  .version("0.1.0")
+  .version(denoJson.version)
   .name("version")
   .action(defaultAction)
   .command("init", initCommand)

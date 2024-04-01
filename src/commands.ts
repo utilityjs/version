@@ -62,7 +62,7 @@ export const initCommand = new Command()
     "Creates version.json file in project root, with selected options."
   )
   .arguments("[initVersion]")
-  .action(async (_options: any, initVersion) => {
+  .action(async (_options: any, initVersion: string) => {
     if (await new GITUtility().hasUncommittedChanges()) {
       throw new UserError("Cannot release with uncommitted changes");
     }
@@ -188,7 +188,7 @@ async function _readVersion(): Promise<string> {
   return (await _getVersionConfig()).version;
 }
 
-export async function _commitAndTag(normalizedVersion: string) {
+async function _commitAndTag(normalizedVersion: string) {
   const gitUtil = new GITUtility();
   await gitUtil.runCommand("add", "*");
   await gitUtil.runCommand("commit", "-m", normalizedVersion);
