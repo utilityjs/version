@@ -42,6 +42,9 @@ If you prefer not to install the CLI locally, just substitute `$ version
 $ deno run -A https://deno.land/x/version/index.ts [whatever]
 ```
 
+## Code commit convention
+https://www.conventionalcommits.org/
+
 ## License
 
 MIT

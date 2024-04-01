@@ -19,6 +19,6 @@
     "@std/semver": "jsr:@std/semver@^0.220.1",
     "@utility/git": "jsr:@utility/git@^0.2.0",
     "@codemonument/cliffy/command": "jsr:@codemonument/cliffy@^1.0.0-rc.3/command",
-    "@codemonument/cliffy/prompt": "jsr:@codemonument/cliffy@^1.0.0-rc.3/pro"
+    "@codemonument/cliffy/prompt": "jsr:@codemonument/cliffy@^1.0.0-rc.3/prompt"
   }
 }

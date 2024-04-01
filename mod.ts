@@ -1,4 +1,4 @@
-import { Command } from "./dep.ts";
+import { Command } from "@codemonument/cliffy/command";
 import {
   defaultAction,
   getCommand,
