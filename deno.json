@@ -1,10 +1,11 @@
 {
   "name": "@utility/version",
+  "version": "1.0.0-pre.1",
+  "exports": "./mod.ts",
   "tasks": {
     "coverage": "deno task test --coverage=./dist/coverage && deno coverage --include=src --lcov ./dist/coverage > ./dist/coverage/lcov.info",
     "test": "deno test"
   },
-  "exports": "./mod.ts",
   "exclude": [
     "dist"
   ],
@@ -16,7 +17,8 @@
   },
   "imports": {
     "@std/semver": "jsr:@std/semver@^0.220.1",
-    "@utility/git": "jsr:@utility/git@^0.2.0"
-  },
-  "version": "1.0.0-pre.1"
+    "@utility/git": "jsr:@utility/git@^0.2.0",
+    "@codemonument/cliffy/command": "jsr:@codemonument/cliffy@^1.0.0-rc.3/command",
+    "@codemonument/cliffy/prompt": "jsr:@codemonument/cliffy@^1.0.0-rc.3/pro"
+  }
 }

@@ -1,7 +1,6 @@
 import { exists, readJsonFile, writeJsonFile } from "./utils.ts";
 import UserError from "./UserError.ts";
-import { Command } from "https://deno.land/x/cliffy@v1.0.0-rc.3/command/command.ts";
-import { Select } from "https://deno.land/x/cliffy@v1.0.0-rc.3/prompt/select.ts";
+import { Command, Select } from "../dep.ts";
 import { format, increment, parse, ReleaseType } from "jsr:@std/semver";
 import { GITUtility } from "jsr:@utility/git";
 
