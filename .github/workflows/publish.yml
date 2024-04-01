@@ -30,7 +30,7 @@ jobs:
         run: deno publish
 
       - name: Release to github
-        if: startsWith(github.event.ref, 'refs/tags/v')
+        if: startsWith(github.event.ref, 'refs/tags/v') && contains(github.event.ref, '-pre') != true
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
