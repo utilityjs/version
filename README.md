@@ -48,3 +48,7 @@ https://www.conventionalcommits.org/
 ## License
 
 MIT
+
+------
+
+Special mention to [@dylanpyle/version](https://github.com/dylanpyle/version). This tool is based out of it and with improvements.
