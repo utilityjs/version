@@ -79,6 +79,8 @@ export const initCommand = new Command()
     await writeJsonFile(VERSION_FILE_NAME, versionConfig);
 
     _updateDENOJSON(versionConfig);
+    _updatePACKAGEJSON(versionConfig);
+    _updateJSRJSON(versionConfig);
 
     _commitAndTag(version);
 
@@ -117,6 +119,8 @@ async function _versionBump(release: string) {
   await writeJsonFile(VERSION_FILE_NAME, versionConfig);
 
   _updateDENOJSON(versionConfig);
+  _updatePACKAGEJSON(versionConfig);
+  _updateJSRJSON(versionConfig);
 
   _commitAndTag(newVersion);
 
@@ -125,10 +129,30 @@ async function _versionBump(release: string) {
 
 async function _updateDENOJSON(versionConfig: VersionConfig): Promise<void> {
   if (versionConfig.deno && (await exists("deno.json"))) {
-    const denoConfig: any = await readJsonFile("deno.json");
-    if (denoConfig) {
-      denoConfig.version = versionConfig.version;
-      await writeJsonFile("deno.json", denoConfig);
+    const config: any = await readJsonFile("deno.json");
+    if (config) {
+      config.version = versionConfig.version;
+      await writeJsonFile("deno.json", config);
+    }
+  }
+}
+
+async function _updatePACKAGEJSON(versionConfig: VersionConfig): Promise<void> {
+  if (versionConfig.deno && (await exists("package.json"))) {
+    const config: any = await readJsonFile("package.json");
+    if (config) {
+      config.version = versionConfig.version;
+      await writeJsonFile("package.json", config);
+    }
+  }
+}
+
+async function _updateJSRJSON(versionConfig: VersionConfig): Promise<void> {
+  if (versionConfig.deno && (await exists("jsr.json"))) {
+    const config: any = await readJsonFile("jsr.json");
+    if (config) {
+      config.version = versionConfig.version;
+      await writeJsonFile("jsr.json", config);
     }
   }
 }

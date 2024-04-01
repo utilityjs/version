@@ -9,7 +9,7 @@ A simple semantic versioning tool.
 ## Installation
 
 ```
-$ deno install -n version -r -A jsr:@utility/version
+$  deno install -g -f -n version -r -A jsr:@utility/version
 ```
 
 Note: If you don't use `-A`, `--allow-read` and `--allow-write` are needed for
