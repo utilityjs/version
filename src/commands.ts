@@ -2,7 +2,7 @@ import { exists, readJsonFile, writeJsonFile } from "./utils.ts";
 import UserError from "./UserError.ts";
 import { Command, Select } from "../dep.ts";
 import { format, increment, parse, ReleaseType } from "jsr:@std/semver@0.221.0";
-import { GITUtility } from "jsr:@utility/git@0.2.0";
+import { GITUtility } from "@utility/git";
 
 const VERSION_FILE_NAME = "version.json";
 
