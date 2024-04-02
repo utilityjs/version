@@ -33,6 +33,7 @@ $ version
   prepatch
   preminor
   premajor
+  prerelease
 
 or
 
