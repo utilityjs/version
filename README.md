@@ -17,36 +17,46 @@ managing the `VERSION` file and `--allow-run` for Git actions.
 
 ## Usage
 
+### Create a `version.json` file (defaults to 0.1.0 if not specified)
 ```
-# Create a `version.json` file (defaults to 1.0.0 if not specified)
 $ version init
-$ version init 0.1.0
+$ version init 0.5.0
+```
+### Increment a version
+```
+$ version
+? Pick release type
+> pre
+  patch
+  minor
+  major
+  prepatch
+  preminor
+  premajor
 
-# Increment a version
-$ version pre
-$ version patch
-$ version minor
-$ version major
-$ version prepatch
-$ version preminor
-$ version premajor
+or
 
-# Print out the current version if it exists
+$ version <release>
+```
+
+### Print out the current version if it exists
+```
 $ version get
 ```
+
 
 If you prefer not to install the CLI locally, just substitute `$ version
 [whatever]` with:
 
 ```shell
-$ deno run -A jsr:@utility/version@1.1.0 [whatever]
+$ deno run -A jsr:@utility/version [whatever]
 ```
 
 ## Code commit convention
 https://www.conventionalcommits.org/
 
-## License
 
+## License
 MIT
 
 ------
