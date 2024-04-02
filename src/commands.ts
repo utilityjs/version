@@ -14,6 +14,11 @@ type VersionConfig = {
   signGitTag?: boolean;
 };
 
+/**
+ * The default action to perform when no specific command is provided.
+ * It checks for the existence of the version file and prompts the user to select a release type.
+ * @throws {UserError} If the version file does not exist.
+ */
 export async function defaultAction() {
   if (!(await _versionFileExists())) {
     throw new UserError(
@@ -38,9 +43,8 @@ export async function defaultAction() {
   await _versionBump(release);
 }
 
-/*
- * Command to print version of project.
- *
+/**
+ * Command to print the current version of the project.
  * @example
  * $> version get
  * => 1.0.0
@@ -51,9 +55,8 @@ export const getCommand = new Command()
     console.log(await _readVersion());
   });
 
-/*
- * Command creates version.json file in project root, with selected options.
- *
+/**
+ * Command to initialize the versioning system by creating a version.json file.
  * @example
  * $> version init
  */
@@ -67,6 +70,7 @@ export const initCommand = new Command()
       throw new UserError("Cannot release with uncommitted changes");
     }
 
+    // Set the initial version or use the provided version
     const version = initVersion || "0.1.0";
 
     const versionConfig = {
@@ -88,6 +92,11 @@ export const initCommand = new Command()
     console.log(`${version}`);
   });
 
+/**
+ * Creates a new command that bumps the project version to the specified release type.
+ * @param {string} release - The type of release to bump the version to.
+ * @returns {Command} A new Command instance configured to perform the version bump.
+ */
 export function getVersionBumpCommand(release: string) {
   return new Command()
     .description(`Bump version to \"${release}\" release`)
