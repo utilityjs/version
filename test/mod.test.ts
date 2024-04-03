@@ -10,7 +10,7 @@ import {
 import { GITUtility } from "@utility/git";
 
 const TMP_RESOURCES_PATH = path.normalize(
-  import.meta.dirname + "/resources/tmp"
+  import.meta.dirname + "/resources/.temp",
 );
 
 describe("version", function () {
@@ -22,7 +22,7 @@ describe("version", function () {
       recursive: true,
     });
     runCommandTestRepo = new GITUtility(
-      path.normalize(TMP_RESOURCES_PATH + "/test_version")
+      path.normalize(TMP_RESOURCES_PATH + "/test_version"),
     );
     await runCommandTestRepo.runCommand("init");
   });
@@ -49,9 +49,11 @@ async function _runVersionTestCommand(args: string[], cwd: string) {
 
   if (code !== 0) {
     throw new Error(
-      `Failed to run \`version-test ${args.join(
-        " "
-      )}\`: ${new TextDecoder().decode(stderr)}`
+      `Failed to run \`version-test ${
+        args.join(
+          " ",
+        )
+      }\`: ${new TextDecoder().decode(stderr)}`,
     );
   }
 
@@ -80,7 +82,7 @@ async function _installVersionTestCommand() {
 
   if (code !== 0) {
     throw new Error(
-      `Failed to run \`deno install\`: ${new TextDecoder().decode(stderr)}`
+      `Failed to run \`deno install\`: ${new TextDecoder().decode(stderr)}`,
     );
   }
 

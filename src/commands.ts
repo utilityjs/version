@@ -22,7 +22,7 @@ type VersionConfig = {
 export async function defaultAction() {
   if (!(await _versionFileExists())) {
     throw new UserError(
-      `Could not read ${VERSION_FILE_NAME} file. Run \`version init\` to create one`
+      `Could not read ${VERSION_FILE_NAME} file. Run \`version init\` to create one`,
     );
   }
 
@@ -62,7 +62,7 @@ export const getCommand = new Command()
  */
 export const initCommand = new Command()
   .description(
-    "Creates version.json file in project root, with selected options."
+    "Creates version.json file in project root, with selected options.",
   )
   .arguments("[initVersion]")
   .action(async (_options: any, initVersion?: string) => {
@@ -120,9 +120,9 @@ async function _versionBump(release: string) {
   const newVersion = format(
     increment(
       parse(versionConfig.version),
-      <ReleaseType>release,
-      versionConfig.prerelease || "pre"
-    )
+      <ReleaseType> release,
+      versionConfig.prerelease || "pre",
+    ),
   );
 
   versionConfig.version = newVersion;
@@ -177,7 +177,7 @@ async function _getVersionConfig(): Promise<VersionConfig> {
       throw err;
     } else {
       throw new UserError(
-        `Could not read ${VERSION_FILE_NAME} file. Run \`version init\` to create one`
+        `Could not read ${VERSION_FILE_NAME} file. Run \`version init\` to create one`,
       );
     }
   }
@@ -186,7 +186,7 @@ async function _getVersionConfig(): Promise<VersionConfig> {
     parse(content.version);
   } catch (e) {
     throw new UserError(
-      `${VERSION_FILE_NAME} file contained "${content.version}", which is not a valid version string`
+      `${VERSION_FILE_NAME} file contained "${content.version}", which is not a valid version string`,
     );
   }
 
@@ -206,6 +206,6 @@ async function _commitAndTag(normalizedVersion: string) {
     "-s",
     `v${normalizedVersion}`,
     "-m",
-    `v${normalizedVersion}`
+    `v${normalizedVersion}`,
   );
 }

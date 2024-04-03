@@ -1,17 +1,19 @@
 {
   "name": "@utility/version",
   "version": "1.4.0",
-  "exports": "./mod.ts",
+  "exports": "./main.ts",
   "tasks": {
     "coverage": "deno task test --coverage=./dist/coverage && deno coverage --include=src --lcov ./dist/coverage > ./dist/coverage/lcov.info",
     "test": "deno test --allow-write --allow-read --allow-run"
   },
   "exclude": [
-    "dist"
+    "dist",
+    ".run",
+    ".github/",
+    "version.json"
   ],
   "publish": {
     "exclude": [
-      ".github/",
       "test/"
     ]
   },

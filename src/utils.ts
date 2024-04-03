@@ -27,14 +27,14 @@ export async function readJsonFile(filePath: string): Promise<any> {
 
 async function _writeTextFile(
   filePath: string,
-  content: string
+  content: string,
 ): Promise<void> {
   await Deno.writeTextFile(filePath, content);
 }
 
 export async function writeJsonFile(
   filePath: string,
-  object: any
+  object: any,
 ): Promise<void> {
   return _writeTextFile(filePath, JSON.stringify(object, null, 2));
 }

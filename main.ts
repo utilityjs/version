@@ -11,7 +11,7 @@ await new Command()
   .description(
     `
     A command line utility for managing your project version.
-  `
+  `,
   )
   .version(denoJson.version)
   .name("version")
