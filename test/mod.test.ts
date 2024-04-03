@@ -37,6 +37,7 @@ describe("version", function () {
   });
 });
 
+//@ts-ignore
 async function _runVersionTestCommand(args: string[], cwd: string) {
   const command = new Deno.Command("version", {
     args: args,

@@ -4,6 +4,7 @@ import { Command } from "@codemonument/cliffy/command";
 import { Select } from "@codemonument/cliffy/prompt";
 import { format, increment, parse, ReleaseType } from "jsr:@std/semver@0.221.0";
 import { GITUtility } from "@utility/git";
+import * as path from "@std/path";
 
 const VERSION_FILE_NAME = "version.json";
 
@@ -11,6 +12,8 @@ type VersionConfig = {
   version: string;
   prerelease?: string;
   deno?: boolean;
+  node?: boolean;
+  jsr?: boolean;
   signGitTag?: boolean;
 };
 
@@ -51,7 +54,7 @@ export async function defaultAction() {
  */
 export const getCommand = new Command()
   .description("Prints version of project.")
-  .action(async (options: any) => {
+  .action(async (_options: any) => {
     console.log(await _readVersion());
   });
 
@@ -83,11 +86,11 @@ export const initCommand = new Command()
 
     await writeJsonFile(VERSION_FILE_NAME, versionConfig);
 
-    _updateDENOJSON(versionConfig);
-    _updatePACKAGEJSON(versionConfig);
-    _updateJSRJSON(versionConfig);
+    await _updateDENOJSON(versionConfig);
+    await _updatePACKAGEJSON(versionConfig);
+    await _updateJSRJSON(versionConfig);
 
-    _commitAndTag(version);
+    await _commitAndTag(version);
 
     console.log(`${version}`);
   });
@@ -97,7 +100,7 @@ export const initCommand = new Command()
  * @param {string} release - The type of release to bump the version to.
  * @returns {Command} A new Command instance configured to perform the version bump.
  */
-export function getVersionBumpCommand(release: string) {
+export function getVersionBumpCommand(release: string): Command {
   return new Command()
     .description(`Bump version to \"${release}\" release`)
     .action(async () => {
@@ -111,7 +114,8 @@ async function _versionFileExists() {
 }
 
 async function _versionBump(release: string) {
-  if (await new GITUtility().hasUncommittedChanges()) {
+  const gitUtils = new GITUtility();
+  if (await gitUtils.hasUncommittedChanges()) {
     throw new UserError("Cannot release with uncommitted changes");
   }
 
@@ -120,50 +124,61 @@ async function _versionBump(release: string) {
   const newVersion = format(
     increment(
       parse(versionConfig.version),
-      <ReleaseType> release,
+      <ReleaseType>release,
       versionConfig.prerelease || "pre",
     ),
   );
 
   versionConfig.version = newVersion;
-  await writeJsonFile(VERSION_FILE_NAME, versionConfig);
+  await _updateVersionInJSON(VERSION_FILE_NAME, versionConfig.version);
 
-  _updateDENOJSON(versionConfig);
-  _updatePACKAGEJSON(versionConfig);
-  _updateJSRJSON(versionConfig);
+  await _updateDENOJSON(versionConfig);
+  await _updatePACKAGEJSON(versionConfig);
+  await _updateJSRJSON(versionConfig);
 
-  _commitAndTag(newVersion);
+  await _commitAndTag(newVersion);
 
   console.log(`${oldVersion} -> ${newVersion}`);
 }
 
-async function _updateDENOJSON(versionConfig: VersionConfig): Promise<void> {
-  if (versionConfig.deno && (await exists("deno.json"))) {
-    const config: any = await readJsonFile("deno.json");
-    if (config) {
-      config.version = versionConfig.version;
-      await writeJsonFile("deno.json", config);
+async function _updateVersionInJSON(
+  fileName: string,
+  version: string,
+): Promise<void> {
+  if (await exists(path.normalize("./" + fileName))) {
+    const config = await Deno.readTextFile(fileName);
+    const configJson = JSON.parse(config);
+    if (configJson && configJson.version) {
+      const output: string[] = [];
+      config.split("\n").forEach(function (a: string) {
+        if (a.includes('"version":')) {
+          output.push(a.replace(configJson.version, version));
+        } else {
+          output.push(a);
+        }
+      });
+      await Deno.writeTextFile(fileName, output.join("\n"));
+    } else {
+      console.warn(`'${fileName}' file does not have 'version' field defined`);
     }
+  }
+}
+
+async function _updateDENOJSON(versionConfig: VersionConfig): Promise<void> {
+  if (versionConfig.deno) {
+    await _updateVersionInJSON("deno.json", versionConfig.version);
   }
 }
 
 async function _updatePACKAGEJSON(versionConfig: VersionConfig): Promise<void> {
-  if (versionConfig.deno && (await exists("package.json"))) {
-    const config: any = await readJsonFile("package.json");
-    if (config) {
-      config.version = versionConfig.version;
-      await writeJsonFile("package.json", config);
-    }
+  if (versionConfig.node) {
+    await _updateVersionInJSON("package.json", versionConfig.version);
   }
 }
 
 async function _updateJSRJSON(versionConfig: VersionConfig): Promise<void> {
-  if (versionConfig.deno && (await exists("jsr.json"))) {
-    const config: any = await readJsonFile("jsr.json");
-    if (config) {
-      config.version = versionConfig.version;
-      await writeJsonFile("jsr.json", config);
-    }
+  if (versionConfig.jsr) {
+    await _updateVersionInJSON("jsr.json", versionConfig.version);
   }
 }
 
