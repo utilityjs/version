@@ -50,11 +50,9 @@ async function _runVersionTestCommand(args: string[], cwd: string) {
 
   if (code !== 0) {
     throw new Error(
-      `Failed to run \`version-test ${
-        args.join(
-          " ",
-        )
-      }\`: ${new TextDecoder().decode(stderr)}`,
+      `Failed to run \`version-test ${args.join(
+        " ",
+      )}\`: ${new TextDecoder().decode(stderr)}`,
     );
   }
 
@@ -72,7 +70,7 @@ async function _installVersionTestCommand() {
       "-A",
       "-n",
       "version-test",
-      "../../../../mod.ts",
+      "../../../../main.ts",
     ],
     cwd: path.normalize(TMP_RESOURCES_PATH + "/test_version"),
     stdout: "piped",
