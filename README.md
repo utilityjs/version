@@ -44,6 +44,8 @@ or
 $ version <release>
 ```
 
+**Note: version updates will not change formatting of json (package/deno/jsr) files**
+
 ### Print out the current version if it exists
 
 ```
