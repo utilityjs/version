@@ -81,7 +81,7 @@ export const initCommand = new Command()
       deno: true,
       node: true,
       jsr: true,
-      signGitTag: true,
+      signGitTag: false,
     };
 
     await writeJsonFile(VERSION_FILE_NAME, versionConfig);
@@ -90,7 +90,7 @@ export const initCommand = new Command()
     await _updatePACKAGEJSON(versionConfig);
     await _updateJSRJSON(versionConfig);
 
-    await _commitAndTag(version);
+    await _commitAndTag(version, versionConfig.signGitTag);
 
     console.log(`${version}`);
   });
@@ -136,7 +136,7 @@ async function _versionBump(release: string) {
   await _updatePACKAGEJSON(versionConfig);
   await _updateJSRJSON(versionConfig);
 
-  await _commitAndTag(newVersion);
+  await _commitAndTag(newVersion, versionConfig.signGitTag);
 
   console.log(`${oldVersion} -> ${newVersion}`);
 }
@@ -212,15 +212,22 @@ async function _readVersion(): Promise<string> {
   return (await _getVersionConfig()).version;
 }
 
-async function _commitAndTag(normalizedVersion: string) {
+async function _commitAndTag(normalizedVersion: string, signGitTag?: boolean) {
   const gitUtil = new GITUtility();
   await gitUtil.runCommand("add", "*");
   await gitUtil.runCommand("commit", "-m", normalizedVersion);
-  await gitUtil.runCommand(
-    "tag",
-    "-s",
-    `v${normalizedVersion}`,
-    "-m",
-    `v${normalizedVersion}`,
-  );
+  if (signGitTag)
+    await gitUtil.runCommand(
+      "tag",
+      "-s",
+      `v${normalizedVersion}`,
+      "-m",
+      `v${normalizedVersion}`,
+    );
+  else
+    await gitUtil.runCommand(
+      "tag",
+      "-m",
+      `v${normalizedVersion}`,
+    );
 }
