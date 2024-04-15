@@ -1,4 +1,4 @@
-import { Command } from "@codemonument/cliffy/command";
+import { Command } from "@cliffy/command";
 import denoJson from "./deno.json" assert { type: "json" };
 import {
   defaultAction,
