@@ -1,6 +1,6 @@
 {
   "name": "@utility/version",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "exports": "./main.ts",
   "tasks": {
     "coverage": "deno task test --coverage=./dist/coverage && deno coverage --include=src --lcov ./dist/coverage > ./dist/coverage/lcov.info",
