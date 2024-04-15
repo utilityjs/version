@@ -227,6 +227,7 @@ async function _commitAndTag(normalizedVersion: string, signGitTag?: boolean) {
   else
     await gitUtil.runCommand(
       "tag",
+      `v${normalizedVersion}`,
       "-m",
       `v${normalizedVersion}`,
     );
