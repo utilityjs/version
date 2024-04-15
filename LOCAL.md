@@ -1,3 +1,3 @@
 ```shell
-deno install -g -f --importmap deno.json -A -n version main.ts
+deno install -g -f --config deno.json -A -n version main.ts
 ```
