@@ -1,5 +1,5 @@
 import { Command } from "@cliffy/command";
-import denoJson from "./deno.json" assert { type: "json" };
+import denoJson from "./deno.json" with { type: "json" };
 import {
   defaultAction,
   getCommand,

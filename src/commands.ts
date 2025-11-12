@@ -2,7 +2,7 @@ import { exists, readJsonFile, writeJsonFile } from "./utils.ts";
 import UserError from "./UserError.ts";
 import { Command } from "@cliffy/command";
 import { Select } from "@cliffy/prompt";
-import { format, increment, parse, ReleaseType } from "jsr:@std/semver@0.221.0";
+import { format, increment, parse, ReleaseType } from "@std/semver";
 import { GITUtility } from "@utility/git";
 import * as path from "@std/path";
 
